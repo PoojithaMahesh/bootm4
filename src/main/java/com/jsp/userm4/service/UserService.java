@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.jsp.userm4.dao.UserDao;
 import com.jsp.userm4.dto.User;
+import com.jsp.userm4.exception.UserIdNotFoundException;
 import com.jsp.userm4.util.ResponseStructure;
 
 @Service
@@ -38,11 +39,7 @@ public class UserService {
 			structure.setData(dbUser);
 			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);
 		}else {
-			ResponseStructure<User> structure=new ResponseStructure<>();
-			structure.setMessage("User Data Not found");
-			structure.setHttpStatus(HttpStatus.NOT_FOUND.value());
-			structure.setData(null);
-			return  new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.NOT_FOUND);
+			throw new UserIdNotFoundException("Sorry failed to fetch the data");
 		}	
 	}
 
@@ -57,11 +54,7 @@ public class UserService {
 			structure.setData(dbUser);
 			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);
 		}else {
-			ResponseStructure<User> structure=new ResponseStructure<>();
-			structure.setMessage("User Data Not found");
-			structure.setHttpStatus(HttpStatus.NOT_FOUND.value());
-			structure.setData(null);
-			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.NOT_FOUND);
+			throw new UserIdNotFoundException("Sorry failed to delete the data");
 		}	
 	}
 
@@ -76,11 +69,7 @@ public class UserService {
 			structure.setData(dbUser);
 			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.OK);
 		}else {
-			ResponseStructure<User> structure=new ResponseStructure<>();
-			structure.setMessage("User Data Not found");
-			structure.setHttpStatus(HttpStatus.NOT_FOUND.value());
-			structure.setData(null);
-			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.NOT_FOUND);
+			throw new UserIdNotFoundException("Sorry failed to update the data");
 		}	
 	}
 
